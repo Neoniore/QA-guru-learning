@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 
 public class BaseTest {
@@ -18,6 +19,13 @@ public class BaseTest {
     @AfterEach
     public void closeBrowser() {
         closeWebDriver();
+    }
+
+    void removeAds() {
+        executeJavaScript("""
+                document.getElementById('fixedban')?.remove();
+                document.querySelector('footer')?.remove();
+                """);
     }
 
 }
