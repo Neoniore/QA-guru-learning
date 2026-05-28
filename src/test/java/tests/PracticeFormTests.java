@@ -41,6 +41,7 @@ public class PracticeFormTests extends BaseTest {
         $("[id='react-select-3-input']").setValue("u").pressEnter();
         $("[id='react-select-4-input']").setValue("A").pressEnter();
 
+
         $("[id='submit']").click();
 
 
@@ -95,7 +96,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
-    public void shouldRejectDigitsInNameFields() {
+    public void shouldRejectDigitsInNameFieldsTest() {
         $("[id='firstName']").setValue("00000");
         $("[id='lastName']").setValue("99999");
         $("[id='gender-radio-3']").click();
@@ -109,7 +110,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
-    public void closeTableFormAfterSubmittingForm() {
+    public void closeTableFormAfterSubmittingFormTest() {
         $("[id='firstName']").setValue("Иван");
         $("[id='lastName']").setValue("Петров");
         $("[id='gender-radio-3']").click();
@@ -121,8 +122,38 @@ public class PracticeFormTests extends BaseTest {
 
 
         $(".table-responsive").shouldNotBe(visible);
-
-
     }
+
+    @Test
+    public void shouldRejectNonImageFileUploadTest() {
+        $("[id='firstName']").setValue("Алёна");
+        $("[id='lastName']").setValue("Иванова");
+        $("[id='gender-radio-2']").click();
+        $("[id='userNumber']").setValue("89993339933");
+
+        File file = new File("C:/java/textFile.txt");
+        $("[id='uploadPicture']").uploadFile(file);
+
+
+        $("[id='submit']").click();
+
+
+        $(".table-responsive").shouldNotBe(visible);
+    }
+
+    @Test
+    public void phoneFieldShouldNotAcceptLettersTest() {
+        $("[id='firstName']").setValue("Алёна");
+        $("[id='lastName']").setValue("Иванова");
+        $("[id='gender-radio-2']").click();
+        $("[id='userNumber']").setValue("ggggggggggg");
+
+
+        $("[id='submit']").click();
+
+
+        $(".table-responsive").shouldNotBe(visible);
+    }
+
 
 }
