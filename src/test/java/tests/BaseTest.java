@@ -3,9 +3,9 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static com.codeborne.selenide.Selenide.*;
 
 
 public class BaseTest {
@@ -14,6 +14,12 @@ public class BaseTest {
     public static void startUp() {
         Configuration.browser = ("chrome");
         Configuration.browserSize = "1920x1080";
+    }
+
+    @BeforeEach
+    public void preConditions() {
+        open("https://demoqa.com/automation-practice-form");
+        removeAds();
     }
 
     @AfterEach
