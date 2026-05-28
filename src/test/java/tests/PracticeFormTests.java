@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTests extends BaseTest {
@@ -74,7 +75,6 @@ public class PracticeFormTests extends BaseTest {
                 .shouldBe(text("Uttar Pradesh Agra"));
     }
 
-
     @Test
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
         $("[id='firstName']").setValue("Иван");
@@ -92,6 +92,37 @@ public class PracticeFormTests extends BaseTest {
                 .shouldBe(text("Other"));
         $x("//tr[td[text()='Mobile']]/td[2]")
                 .shouldBe(text("8999999999"));
+    }
+
+    @Test
+    public void shouldRejectDigitsInNameFields() {
+        $("[id='firstName']").setValue("00000");
+        $("[id='lastName']").setValue("99999");
+        $("[id='gender-radio-3']").click();
+        $("[id='userNumber']").setValue("89999999999");
+
+
+        $("[id='submit']").click();
+
+
+        $(".table-responsive").shouldNotBe(visible);
+    }
+
+    @Test
+    public void closeTableFormAfterSubmittingForm() {
+        $("[id='firstName']").setValue("Иван");
+        $("[id='lastName']").setValue("Петров");
+        $("[id='gender-radio-3']").click();
+        $("[id='userNumber']").setValue("89999999999");
+
+
+        $("[id='submit']").click();
+        $("[id='closeLargeModal']").click();
+
+
+        $(".table-responsive").shouldNotBe(visible);
+
+
     }
 
 }
