@@ -16,7 +16,7 @@ public class PracticeFormTests extends BaseTest {
         $("[id='firstName']").setValue("Aleks");
         $("[id='lastName']").setValue("Pechkin");
         $("[id='userEmail']").setValue("Aleks@sdfs.com");
-        $("[id='gender-radio-1']").click();
+        $("[id='genterWrapper'] input[value='Male']").click();
         $("[id='userNumber']").setValue("8999999997");
 
         $("[id='dateOfBirthInput']").click();
@@ -29,9 +29,9 @@ public class PracticeFormTests extends BaseTest {
                 .setValue("computer science")
                 .pressEnter();
 
-        $("[id='hobbies-checkbox-1']").click();
-        $("[id='hobbies-checkbox-2']").click();
-        $("[id='hobbies-checkbox-3']").click();
+        $x("//*[@id='hobbiesWrapper']//label[text()='Sports']").click();
+        $x("//*[@id='hobbiesWrapper']//label[text()='Reading']").click();
+        $x("//*[@id='hobbiesWrapper']//label[text()='Music']").click();
 
         File file = new File("C:/java/image.jpg");
         $("[id='uploadPicture']").uploadFile(file);
@@ -80,7 +80,7 @@ public class PracticeFormTests extends BaseTest {
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
         $("[id='firstName']").setValue("Иван");
         $("[id='lastName']").setValue("Петров");
-        $("[id='gender-radio-3']").click();
+        $("input[value='Other']").click();
         $("[id='userNumber']").setValue("89999999999");
 
 
@@ -99,7 +99,7 @@ public class PracticeFormTests extends BaseTest {
     public void shouldRejectDigitsInNameFieldsTest() {
         $("[id='firstName']").setValue("00000");
         $("[id='lastName']").setValue("99999");
-        $("[id='gender-radio-3']").click();
+        $("input[value='Other']").click();
         $("[id='userNumber']").setValue("89999999999");
 
 
@@ -113,7 +113,7 @@ public class PracticeFormTests extends BaseTest {
     public void closeTableFormAfterSubmittingFormTest() {
         $("[id='firstName']").setValue("Иван");
         $("[id='lastName']").setValue("Петров");
-        $("[id='gender-radio-3']").click();
+        $("input[value='Other']").click();
         $("[id='userNumber']").setValue("89999999999");
 
 
@@ -128,7 +128,7 @@ public class PracticeFormTests extends BaseTest {
     public void shouldRejectNonImageFileUploadTest() {
         $("[id='firstName']").setValue("Алёна");
         $("[id='lastName']").setValue("Иванова");
-        $("[id='gender-radio-2']").click();
+        $("input[value='Female']").click();
         $("[id='userNumber']").setValue("89993339933");
 
         File file = new File("C:/java/textFile.txt");
@@ -145,7 +145,7 @@ public class PracticeFormTests extends BaseTest {
     public void phoneFieldShouldNotAcceptLettersTest() {
         $("[id='firstName']").setValue("Алёна");
         $("[id='lastName']").setValue("Иванова");
-        $("[id='gender-radio-2']").click();
+        $("input[value='Other']").click();
         $("[id='userNumber']").setValue("ggggggggggg");
 
 
