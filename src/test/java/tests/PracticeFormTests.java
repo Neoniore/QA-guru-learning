@@ -2,11 +2,11 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+
 
 public class PracticeFormTests extends BaseTest {
 
@@ -16,7 +16,7 @@ public class PracticeFormTests extends BaseTest {
         $("[id='firstName']").setValue("Aleks");
         $("[id='lastName']").setValue("Pechkin");
         $("[id='userEmail']").setValue("Aleks@sdfs.com");
-        $("[id='genterWrapper'] input[value='Male']").click();
+        $("[id='genterWrapper']").$(byText("Male")).click();
         $("[id='userNumber']").setValue("8999999997");
 
         $("[id='dateOfBirthInput']").click();
@@ -29,11 +29,11 @@ public class PracticeFormTests extends BaseTest {
                 .setValue("computer science")
                 .pressEnter();
 
-        $x("//*[@id='hobbiesWrapper']//label[text()='Sports']").click();
-        $x("//*[@id='hobbiesWrapper']//label[text()='Reading']").click();
-        $x("//*[@id='hobbiesWrapper']//label[text()='Music']").click();
+        $("[id='hobbiesWrapper']").$(byText("Sports")).click();
+        $("[id='hobbiesWrapper']").$(byText("Reading")).click();
+        $("[id='hobbiesWrapper']").$(byText("Music")).click();
 
-        $("[id='uploadPicture']").uploadFromClasspath("image.jpg");
+                $("[id='uploadPicture']").uploadFromClasspath("image.jpg");
 
         $("[id='currentAddress']").setValue("Backer street, 221b");
 
