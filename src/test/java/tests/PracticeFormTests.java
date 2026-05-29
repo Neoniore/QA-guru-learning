@@ -33,8 +33,7 @@ public class PracticeFormTests extends BaseTest {
         $x("//*[@id='hobbiesWrapper']//label[text()='Reading']").click();
         $x("//*[@id='hobbiesWrapper']//label[text()='Music']").click();
 
-        File file = new File("C:/java/image.jpg");
-        $("[id='uploadPicture']").uploadFile(file);
+        $("[id='uploadPicture']").uploadFromClasspath("image.jpg");
 
         $("[id='currentAddress']").setValue("Backer street, 221b");
 
@@ -131,8 +130,7 @@ public class PracticeFormTests extends BaseTest {
         $("input[value='Female']").click();
         $("[id='userNumber']").setValue("89993339933");
 
-        File file = new File("C:/java/textFile.txt");
-        $("[id='uploadPicture']").uploadFile(file);
+        $("[id='uploadPicture']").uploadFromClasspath("textFile.txt");
 
 
         $("[id='submit']").click();
