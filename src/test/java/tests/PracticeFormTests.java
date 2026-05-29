@@ -79,7 +79,7 @@ public class PracticeFormTests extends BaseTest {
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
         $("[id='firstName']").setValue("Иван");
         $("[id='lastName']").setValue("Петров");
-        $("input[value='Other']").click();
+        $("[id='genterWrapper']").$(byText("Other")).click();
         $("[id='userNumber']").setValue("89999999999");
 
 
@@ -98,7 +98,7 @@ public class PracticeFormTests extends BaseTest {
     public void shouldRejectDigitsInNameFieldsTest() {
         $("[id='firstName']").setValue("00000");
         $("[id='lastName']").setValue("99999");
-        $("input[value='Other']").click();
+        $("[id='genterWrapper']").$(byText("Other")).click();
         $("[id='userNumber']").setValue("89999999999");
 
 
@@ -112,7 +112,7 @@ public class PracticeFormTests extends BaseTest {
     public void closeTableFormAfterSubmittingFormTest() {
         $("[id='firstName']").setValue("Иван");
         $("[id='lastName']").setValue("Петров");
-        $("input[value='Other']").click();
+        $("[id='genterWrapper']").$(byText("Other")).click();
         $("[id='userNumber']").setValue("89999999999");
 
 
@@ -127,7 +127,7 @@ public class PracticeFormTests extends BaseTest {
     public void shouldRejectNonImageFileUploadTest() {
         $("[id='firstName']").setValue("Алёна");
         $("[id='lastName']").setValue("Иванова");
-        $("input[value='Female']").click();
+        $("[id='genterWrapper']").$(byText("Female")).click();
         $("[id='userNumber']").setValue("89993339933");
 
         $("[id='uploadPicture']").uploadFromClasspath("textFile.txt");
@@ -143,7 +143,7 @@ public class PracticeFormTests extends BaseTest {
     public void phoneFieldShouldNotAcceptLettersTest() {
         $("[id='firstName']").setValue("Алёна");
         $("[id='lastName']").setValue("Иванова");
-        $("input[value='Other']").click();
+        $("[id='genterWrapper']").$(byText("Other")).click();
         $("[id='userNumber']").setValue("ggggggggggg");
 
 
