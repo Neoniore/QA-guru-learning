@@ -37,8 +37,8 @@ public class PracticeFormTests extends BaseTest {
 
         $("[id='currentAddress']").setValue("Backer street, 221b");
 
-        $("[id='react-select-3-input']").setValue("u").pressEnter();
-        $("[id='react-select-4-input']").setValue("A").pressEnter();
+        $("[id='react-select-3-input']").setValue("Uttar Pradesh").pressEnter();
+        $("[id='react-select-4-input']").setValue("Agra").pressEnter();
 
 
         $("[id='submit']").click();
