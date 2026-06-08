@@ -129,7 +129,6 @@ public class PracticeFormTests extends BaseTest {
         $("[id='lastName']").setValue("Иванова");
         $("[id='genterWrapper']").$(byText("Female")).click();
         $("[id='userNumber']").setValue("89993339933");
-
         $("[id='uploadPicture']").uploadFromClasspath("textFile.txt");
 
 
@@ -152,6 +151,4 @@ public class PracticeFormTests extends BaseTest {
 
         $(".table-responsive").shouldNotBe(visible);
     }
-
-
 }
