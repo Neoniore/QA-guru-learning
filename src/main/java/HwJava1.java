@@ -9,16 +9,19 @@ public class HwJava1 {
 //
 //4) получить переполнение при арифметической операции
     public static void main(String[] args) {
-        task1();
+        task01();
         task2();
         task4();
     }
 
-    public static void task1() {
+    public static void task01() {
         int a = 2;
         int b = 3;
         int c = (a + b) * 4 / 2;
         System.out.println(c);
+
+        double d = c / 2.0 - 1 * 0.2;
+        System.out.println(d);
     }
 
     public static void task2() {
