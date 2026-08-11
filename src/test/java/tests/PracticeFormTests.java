@@ -6,8 +6,6 @@ import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
 
 @DisplayName("Тесты регистрации")
 public class PracticeFormTests extends BaseTest {
@@ -22,133 +20,88 @@ public class PracticeFormTests extends BaseTest {
                 .setUserEmail("Aleks@sdfs.com")
                 .setGender("Male")
                 .setUserNumber("8999999997")
-                .setDateOfBirth("20", "July", "1998");
+                .setDateOfBirth("20", "July", "1998")
+                .setSubjects("E", "computer science")
+                .setHobbies("Sports", "Reading", "Music")
+                .uploadPicture("image.jpg")
+                .setCurrentAddress("Backer street, 221b")
+                .setState("Uttar Pradesh")
+                .setCity("Agra")
+                .submit();
 
-        $("[id='subjectsInput']").setValue("E")
-                .pressEnter()
-                .setValue("computer science")
-                .pressEnter();
-
-        $("[id='hobbiesWrapper']").$(byText("Sports")).click();
-        $("[id='hobbiesWrapper']").$(byText("Reading")).click();
-        $("[id='hobbiesWrapper']").$(byText("Music")).click();
-
-        $("[id='uploadPicture']").uploadFromClasspath("image.jpg");
-
-        $("[id='currentAddress']").setValue("Backer street, 221b");
-
-        $("[id='react-select-3-input']").setValue("Uttar Pradesh").pressEnter();
-        $("[id='react-select-4-input']").setValue("Agra").pressEnter();
-
-
-        $("[id='submit']").click();
-
-
-        $x("//tr[td[text()='Student Name']]/td[2]")
-                .shouldBe(text("Aleks Pechkin"));
-
-        $x("//tr[td[text()='Student Email']]/td[2]")
-                .shouldBe(text("Aleks@sdfs.com"));
-
-        $x("//tr[td[text()='Gender']]/td[2]")
-                .shouldBe(text("Male"));
-
-        $x("//tr[td[text()='Mobile']]/td[2]")
-                .shouldBe(text("8999999997"));
-
-        $x("//tr[td[text()='Date of Birth']]/td[2]")
-                .shouldBe(text("20 July,1998"));
-
-        $x("//tr[td[text()='Subjects']]/td[2]")
-                .shouldBe(text("English, Computer Science"));
-
-        $x("//tr[td[text()='Hobbies']]/td[2]")
-                .shouldBe(text("Sports, Reading, Music"));
-
-        $x("//tr[td[text()='Picture']]/td[2]")
-                .shouldBe(text("image.jpg"));
-
-        $x("//tr[td[text()='Address']]/td[2]")
-                .shouldBe(text("Backer street, 221b"));
-
-        $x("//tr[td[text()='State and City']]/td[2]")
-                .shouldBe(text("Uttar Pradesh Agra"));
+        registrationPage.getResultCell("Student Name").shouldHave(text("Aleks Pechkin"));
+        registrationPage.getResultCell("Student Email").shouldHave(text("Aleks@sdfs.com"));
+        registrationPage.getResultCell("Gender").shouldHave(text("Male"));
+        registrationPage.getResultCell("Mobile").shouldHave(text("8999999997"));
+        registrationPage.getResultCell("Date of Birth").shouldHave(text("20 July,1998"));
+        registrationPage.getResultCell("Subjects").shouldHave(text("English, Computer Science"));
+        registrationPage.getResultCell("Hobbies").shouldHave(text("Sports, Reading, Music"));
+        registrationPage.getResultCell("Picture").shouldHave(text("image.jpg"));
+        registrationPage.getResultCell("Address").shouldHave(text("Backer street, 221b"));
+        registrationPage.getResultCell("State and City").shouldHave(text("Uttar Pradesh Agra"));
     }
 
     @Test
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
-        $("[id='firstName']").setValue("Иван");
-        $("[id='lastName']").setValue("Петров");
-        $("[id='genterWrapper']").$(byText("Other")).click();
-        $("[id='userNumber']").setValue("89999999999");
+        registrationPage.openPage()
+                .setFirstName("Иван")
+                .setLastName("Петров")
+                .setGender("Other")
+                .setUserNumber("89999999999")
+                .submit();
 
-
-        $("[id='submit']").click();
-
-
-        $x("//tr[td[text()='Student Name']]/td[2]")
-                .shouldBe(text("Иван Петров"));
-        $x("//tr[td[text()='Gender']]/td[2]")
-                .shouldBe(text("Other"));
-        $x("//tr[td[text()='Mobile']]/td[2]")
-                .shouldBe(text("8999999999"));
+        registrationPage.getResultCell("Student Name").shouldHave(text("Иван Петров"));
+        registrationPage.getResultCell("Gender").shouldHave(text("Other"));
+        registrationPage.getResultCell("Mobile").shouldHave(text("8999999999"));
     }
 
     @Test
     public void shouldRejectDigitsInNameFieldsTest() {
-        $("[id='firstName']").setValue("00000");
-        $("[id='lastName']").setValue("99999");
-        $("[id='genterWrapper']").$(byText("Other")).click();
-        $("[id='userNumber']").setValue("89999999999");
+        registrationPage.openPage()
+                .setFirstName("00000")
+                .setLastName("99999")
+                .setGender("Other")
+                .setUserNumber("89999999999")
+                .submit();
 
-
-        $("[id='submit']").click();
-
-
-        $(".table-responsive").shouldNotBe(visible);
+        registrationPage.getResultTable().shouldNotBe(visible);
     }
 
     @Test
     public void closeTableFormAfterSubmittingFormTest() {
-        $("[id='firstName']").setValue("Иван");
-        $("[id='lastName']").setValue("Петров");
-        $("[id='genterWrapper']").$(byText("Other")).click();
-        $("[id='userNumber']").setValue("89999999999");
+        registrationPage.openPage()
+                .setFirstName("Иван")
+                .setLastName("Петров")
+                .setGender("Other")
+                .setUserNumber("89999999999")
+                .submit()
+                .closeResultModal();
 
-
-        $("[id='submit']").click();
-        $("[id='closeLargeModal']").click();
-
-
-        $(".table-responsive").shouldNotBe(visible);
+        registrationPage.getResultTable().shouldNotBe(visible);
     }
 
     @Test
     public void shouldRejectNonImageFileUploadTest() {
-        $("[id='firstName']").setValue("Алёна");
-        $("[id='lastName']").setValue("Иванова");
-        $("[id='genterWrapper']").$(byText("Female")).click();
-        $("[id='userNumber']").setValue("89993339933");
-        $("[id='uploadPicture']").uploadFromClasspath("textFile.txt");
+        registrationPage.openPage()
+                .setFirstName("Алёна")
+                .setLastName("Иванова")
+                .setGender("Female")
+                .setUserNumber("89993339933")
+                .uploadPicture("textFile.txt")
+                .submit();
 
-
-        $("[id='submit']").click();
-
-
-        $(".table-responsive").shouldNotBe(visible);
+        registrationPage.getResultTable().shouldNotBe(visible);
     }
 
     @Test
     public void phoneFieldShouldNotAcceptLettersTest() {
-        $("[id='firstName']").setValue("Алёна");
-        $("[id='lastName']").setValue("Иванова");
-        $("[id='genterWrapper']").$(byText("Other")).click();
-        $("[id='userNumber']").setValue("ggggggggggg");
+        registrationPage.openPage()
+                .setFirstName("Алёна")
+                .setLastName("Иванова")
+                .setGender("Other")
+                .setUserNumber("ggggggggggg")
+                .submit();
 
-
-        $("[id='submit']").click();
-
-
-        $(".table-responsive").shouldNotBe(visible);
+        registrationPage.getResultTable().shouldNotBe(visible);
     }
 }
