@@ -1,6 +1,8 @@
 package tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -10,19 +12,22 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTests extends BaseTest {
 
+    RegistrationPage registrationPage = new RegistrationPage();
+
+    @BeforeEach
+    public void preConditions() {
+        open("automation-practice-form");
+        removeAds();
+    }
 
     @Test
     public void positiveRegistrationFormFillingTest() {
-        $("[id='firstName']").setValue("Aleks");
-        $("[id='lastName']").setValue("Pechkin");
-        $("[id='userEmail']").setValue("Aleks@sdfs.com");
-        $("[id='genterWrapper']").$(byText("Male")).click();
-        $("[id='userNumber']").setValue("8999999997");
-
-        $("[id='dateOfBirthInput']").click();
-        $(".react-datepicker__month-select").selectOption("July");
-        $(".react-datepicker__year-select").selectOption("1998");
-        $(".react-datepicker__day--001").click();
+        registrationPage.setFirstName("Aleks")
+                .setLastName("Pechkin")
+                .setUserEmail("Aleks@sdfs.com")
+                .setGender("Male")
+                .setUserNumber("8999999997")
+                .setDateOfBirth("20", "July", "1998");
 
         $("[id='subjectsInput']").setValue("E")
                 .pressEnter()
@@ -33,7 +38,7 @@ public class PracticeFormTests extends BaseTest {
         $("[id='hobbiesWrapper']").$(byText("Reading")).click();
         $("[id='hobbiesWrapper']").$(byText("Music")).click();
 
-                $("[id='uploadPicture']").uploadFromClasspath("image.jpg");
+        $("[id='uploadPicture']").uploadFromClasspath("image.jpg");
 
         $("[id='currentAddress']").setValue("Backer street, 221b");
 
@@ -57,7 +62,7 @@ public class PracticeFormTests extends BaseTest {
                 .shouldBe(text("8999999997"));
 
         $x("//tr[td[text()='Date of Birth']]/td[2]")
-                .shouldBe(text("01 July,1998"));
+                .shouldBe(text("20 July,1998"));
 
         $x("//tr[td[text()='Subjects']]/td[2]")
                 .shouldBe(text("English, Computer Science"));

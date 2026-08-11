@@ -14,12 +14,7 @@ public class BaseTest {
     public static void startUp() {
         Configuration.browser = ("chrome");
         Configuration.browserSize = "1920x1080";
-    }
-
-    @BeforeEach
-    public void preConditions() {
-        open("https://demoqa.com/automation-practice-form");
-        removeAds();
+        Configuration.baseUrl = "https://demoqa.com/";
     }
 
     @AfterEach
@@ -33,5 +28,7 @@ public class BaseTest {
                 document.querySelector('footer')?.remove();
                 """);
     }
+
+
 
 }
