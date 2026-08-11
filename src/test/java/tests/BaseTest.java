@@ -14,21 +14,13 @@ public class BaseTest {
     public static void startUp() {
         Configuration.browser = ("chrome");
         Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com/";
+        Configuration.baseUrl = "https://demoqa.com";
     }
 
     @AfterEach
     public void closeBrowser() {
         closeWebDriver();
     }
-
-    void removeAds() {
-        executeJavaScript("""
-                document.getElementById('fixedban')?.remove();
-                document.querySelector('footer')?.remove();
-                """);
-    }
-
 
 
 }

@@ -4,10 +4,9 @@ import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.element;
+import static com.codeborne.selenide.Selenide.*;
 
-public class RegistrationPage {
+public class RegistrationPage extends BasePage {
     CalendarComponent calendarComponent = new CalendarComponent();
 
     //sostoyanie
@@ -20,6 +19,13 @@ public class RegistrationPage {
 
 
     //actions
+    public RegistrationPage openPage() {
+        open("/automation-practice-form");
+        removeAds();
+        return this;
+    }
+
+
     public RegistrationPage setFirstName(String value) {
         firstName.setValue(value);
         return this;

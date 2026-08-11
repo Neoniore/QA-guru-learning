@@ -1,6 +1,5 @@
 package tests;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
@@ -15,15 +14,10 @@ public class PracticeFormTests extends BaseTest {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
-    @BeforeEach
-    public void preConditions() {
-        open("automation-practice-form");
-        removeAds();
-    }
-
     @Test
     public void positiveRegistrationFormFillingTest() {
-        registrationPage.setFirstName("Aleks")
+        registrationPage.openPage()
+                .setFirstName("Aleks")
                 .setLastName("Pechkin")
                 .setUserEmail("Aleks@sdfs.com")
                 .setGender("Male")
