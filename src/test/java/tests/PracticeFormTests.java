@@ -15,6 +15,7 @@ public class PracticeFormTests extends BaseTest {
     @Test
     public void positiveRegistrationFormFillingTest() {
         registrationPage.openPage()
+                .removeAdvertisement()
                 .setFirstName("Aleks")
                 .setLastName("Pechkin")
                 .setUserEmail("Aleks@sdfs.com")
@@ -44,6 +45,7 @@ public class PracticeFormTests extends BaseTest {
     @Test
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
         registrationPage.openPage()
+                .removeAdvertisement()
                 .setFirstName("Иван")
                 .setLastName("Петров")
                 .setGender("Other")
@@ -58,6 +60,7 @@ public class PracticeFormTests extends BaseTest {
     @Test
     public void shouldRejectDigitsInNameFieldsTest() {
         registrationPage.openPage()
+                .removeAdvertisement()
                 .setFirstName("00000")
                 .setLastName("99999")
                 .setGender("Other")
@@ -70,6 +73,7 @@ public class PracticeFormTests extends BaseTest {
     @Test
     public void closeTableFormAfterSubmittingFormTest() {
         registrationPage.openPage()
+                .removeAdvertisement()
                 .setFirstName("Иван")
                 .setLastName("Петров")
                 .setGender("Other")
@@ -83,6 +87,7 @@ public class PracticeFormTests extends BaseTest {
     @Test
     public void shouldRejectNonImageFileUploadTest() {
         registrationPage.openPage()
+                .removeAdvertisement()
                 .setFirstName("Алёна")
                 .setLastName("Иванова")
                 .setGender("Female")
@@ -96,6 +101,7 @@ public class PracticeFormTests extends BaseTest {
     @Test
     public void phoneFieldShouldNotAcceptLettersTest() {
         registrationPage.openPage()
+                .removeAdvertisement()
                 .setFirstName("Алёна")
                 .setLastName("Иванова")
                 .setGender("Other")

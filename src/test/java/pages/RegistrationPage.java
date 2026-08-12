@@ -32,6 +32,11 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
+    public RegistrationPage removeAdvertisement() {
+        removeAds();
+        return this;
+    }
+
     public RegistrationPage setFirstName(String value) {
         firstName.setValue(value);
         return this;
@@ -107,8 +112,8 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
-    public SelenideElement getResultCell(String label) {
-        return resultsTable.getCell(label);
+    public SelenideElement getResultCell(String key) {
+        return resultsTable.getCell(key);
     }
 
     public SelenideElement getResultTable() {
