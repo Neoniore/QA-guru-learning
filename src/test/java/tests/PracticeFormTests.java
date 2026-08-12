@@ -13,6 +13,7 @@ public class PracticeFormTests extends BaseTest {
     RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
+    @DisplayName("Заполнение всех полей валидными данными и проверка результирующей таблицы")
     public void positiveRegistrationFormFillingTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -43,6 +44,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Заполнение обязательных полей валидными данными и проверка результирующей таблицы")
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -58,6 +60,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Ввод цифр в поля ввода Имени и Фамилии")
     public void shouldRejectDigitsInNameFieldsTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -71,6 +74,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Закрытие результирующей таблицы")
     public void closeTableFormAfterSubmittingFormTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -85,6 +89,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Загрузка текстового файла в поле для картинок")
     public void shouldRejectNonImageFileUploadTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -99,6 +104,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Заполнение номера телефона буквами")
     public void phoneFieldShouldNotAcceptLettersTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
