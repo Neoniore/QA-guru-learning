@@ -28,7 +28,6 @@ public class RegistrationPage extends BasePage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-        removeAds();
         return this;
     }
 
