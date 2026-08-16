@@ -1,11 +1,13 @@
 package tests;
 
+import data.Gender;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static data.RegistrationFormTestData.*;
 
 @DisplayName("Тесты регистрации")
 public class PracticeFormTests extends BaseTest {
@@ -17,30 +19,30 @@ public class PracticeFormTests extends BaseTest {
     public void positiveRegistrationFormFillingTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
-                .setFirstName("Aleks")
-                .setLastName("Pechkin")
-                .setUserEmail("Aleks@sdfs.com")
-                .setGender("Male")
-                .setUserNumber("8999999997")
-                .setDateOfBirth("20", "July", "1998")
-                .setSubjects("E", "computer science")
-                .setHobbies("Sports", "Reading", "Music")
-                .uploadPicture("image.jpg")
-                .setCurrentAddress("Backer street, 221b")
-                .setState("Uttar Pradesh")
-                .setCity("Agra")
+                .setFirstName(FIRST_NAME)
+                .setLastName(LAST_NAME)
+                .setUserEmail(USER_EMAIL)
+                .setGender(Gender.Male.description)
+                .setUserNumber(USER_NUMBER)
+                .setDateOfBirth(DAY, MONTH, YEAR)
+                .setSubjects(SUBJECTS)
+                .setHobbies(HOBBIES)
+                .uploadPicture(PICTURE)
+                .setCurrentAddress(CURRENT_ADDRESS)
+                .setState(STATE)
+                .setCity(CITY)
                 .submit();
 
-        registrationPage.getResultCell("Student Name").shouldHave(text("Aleks Pechkin"));
-        registrationPage.getResultCell("Student Email").shouldHave(text("Aleks@sdfs.com"));
-        registrationPage.getResultCell("Gender").shouldHave(text("Male"));
-        registrationPage.getResultCell("Mobile").shouldHave(text("8999999997"));
-        registrationPage.getResultCell("Date of Birth").shouldHave(text("20 July,1998"));
-        registrationPage.getResultCell("Subjects").shouldHave(text("English, Computer Science"));
-        registrationPage.getResultCell("Hobbies").shouldHave(text("Sports, Reading, Music"));
-        registrationPage.getResultCell("Picture").shouldHave(text("image.jpg"));
-        registrationPage.getResultCell("Address").shouldHave(text("Backer street, 221b"));
-        registrationPage.getResultCell("State and City").shouldHave(text("Uttar Pradesh Agra"));
+        registrationPage.getResultCell("Student Name").shouldHave(text(FIRST_NAME + " " + LAST_NAME));
+        registrationPage.getResultCell("Student Email").shouldHave(text(USER_EMAIL));
+        registrationPage.getResultCell("Gender").shouldHave(text(Gender.Male.description));
+        registrationPage.getResultCell("Mobile").shouldHave(text(USER_NUMBER));
+        registrationPage.getResultCell("Date of Birth").shouldHave(text(DAY + " " + MONTH + "," + YEAR));
+        registrationPage.getResultCell("Subjects").shouldHave(text(EXPECTED_SUBJECTS));
+        registrationPage.getResultCell("Hobbies").shouldHave(text(String.join(", ", HOBBIES)));
+        registrationPage.getResultCell("Picture").shouldHave(text(PICTURE));
+        registrationPage.getResultCell("Address").shouldHave(text(CURRENT_ADDRESS));
+        registrationPage.getResultCell("State and City").shouldHave(text(STATE + " " + CITY));
     }
 
     @Test
@@ -48,15 +50,15 @@ public class PracticeFormTests extends BaseTest {
     public void positiveRegistrationFormRequiredFieldsFillingTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
-                .setFirstName("Иван")
-                .setLastName("Петров")
-                .setGender("Other")
-                .setUserNumber("89999999999")
+                .setFirstName(FIRST_NAME)
+                .setLastName(LAST_NAME)
+                .setGender(Gender.Other.description)
+                .setUserNumber(USER_NUMBER)
                 .submit();
 
-        registrationPage.getResultCell("Student Name").shouldHave(text("Иван Петров"));
-        registrationPage.getResultCell("Gender").shouldHave(text("Other"));
-        registrationPage.getResultCell("Mobile").shouldHave(text("8999999999"));
+        registrationPage.getResultCell("Student Name").shouldHave(text(FIRST_NAME + " " + LAST_NAME));
+        registrationPage.getResultCell("Gender").shouldHave(text(Gender.Other.description));
+        registrationPage.getResultCell("Mobile").shouldHave(text(USER_NUMBER));
     }
 
     @Test
@@ -64,10 +66,10 @@ public class PracticeFormTests extends BaseTest {
     public void shouldRejectDigitsInNameFieldsTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
-                .setFirstName("00000")
-                .setLastName("99999")
-                .setGender("Other")
-                .setUserNumber("89999999999")
+                .setFirstName(NAME_AS_NUMBER)
+                .setLastName(NAME_AS_NUMBER)
+                .setGender(Gender.Other.description)
+                .setUserNumber(USER_NUMBER)
                 .submit();
 
         registrationPage.getResultTable().shouldNotBe(visible);
@@ -78,10 +80,10 @@ public class PracticeFormTests extends BaseTest {
     public void closeTableFormAfterSubmittingFormTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
-                .setFirstName("Иван")
-                .setLastName("Петров")
-                .setGender("Other")
-                .setUserNumber("89999999999")
+                .setFirstName(FIRST_NAME)
+                .setLastName(LAST_NAME)
+                .setGender(Gender.Other.description)
+                .setUserNumber(USER_NUMBER)
                 .submit()
                 .closeResultModal();
 
@@ -93,11 +95,11 @@ public class PracticeFormTests extends BaseTest {
     public void shouldRejectNonImageFileUploadTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
-                .setFirstName("Алёна")
-                .setLastName("Иванова")
-                .setGender("Female")
-                .setUserNumber("89993339933")
-                .uploadPicture("textFile.txt")
+                .setFirstName(FIRST_NAME)
+                .setLastName(LAST_NAME)
+                .setGender(Gender.Female.description)
+                .setUserNumber(USER_NUMBER)
+                .uploadPicture(TEXT_FILE)
                 .submit();
 
         registrationPage.getResultTable().shouldNotBe(visible);
@@ -108,10 +110,10 @@ public class PracticeFormTests extends BaseTest {
     public void phoneFieldShouldNotAcceptLettersTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
-                .setFirstName("Алёна")
-                .setLastName("Иванова")
-                .setGender("Other")
-                .setUserNumber("ggggggggggg")
+                .setFirstName(FIRST_NAME)
+                .setLastName(LAST_NAME)
+                .setGender(Gender.Other.description)
+                .setUserNumber(USER_NUMBER_AS_STRING)
                 .submit();
 
         registrationPage.getResultTable().shouldNotBe(visible);
