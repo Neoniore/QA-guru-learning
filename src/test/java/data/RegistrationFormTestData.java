@@ -18,7 +18,7 @@ public class RegistrationFormTestData {
     public static final String STATE = "Uttar Pradesh";
     public static final String CITY = "Agra";
 
-    // константы для позитивных тестов
+    // константы для негативных тестов
     public static final String NAME_AS_NUMBER = "00000";
     public static final String USER_NUMBER_AS_STRING = "ggggggggggg";
     public static final String TEXT_FILE = "textFile.txt";
