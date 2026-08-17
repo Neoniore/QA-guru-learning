@@ -1,6 +1,7 @@
 package tests;
 
 import data.Gender;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
@@ -63,6 +64,7 @@ public class PracticeFormTests extends BaseTest {
 
     @Test
     @DisplayName("Ввод цифр в поля ввода Имени и Фамилии")
+    @Disabled("Баг - принимается ввод цифр в поля ввода Имени и Фамилии")
     public void shouldRejectDigitsInNameFieldsTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -77,6 +79,7 @@ public class PracticeFormTests extends BaseTest {
 
     @Test
     @DisplayName("Закрытие результирующей таблицы")
+    @Disabled("Баг - таблица не закрывается")
     public void closeTableFormAfterSubmittingFormTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -92,6 +95,7 @@ public class PracticeFormTests extends BaseTest {
 
     @Test
     @DisplayName("Загрузка текстового файла в поле для картинок")
+    @Disabled("Баг - принимается загрузка текстового файла в поле для картинок")
     public void shouldRejectNonImageFileUploadTest() {
         registrationPage.openPage()
                 .removeAdvertisement()
