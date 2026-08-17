@@ -5,11 +5,9 @@ public enum Gender {
     Female("Female"),
     Other("Other");
 
-
     public final String description;
 
     Gender(String description) {
-
         this.description = description;
     }
 }
