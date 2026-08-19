@@ -18,8 +18,18 @@ public class RegistrationFormTestData {
     public static final String STATE = "Uttar Pradesh";
     public static final String CITY = "Agra";
 
+
+    public static final String USER_NUMBER_WITH_PLUS = "+79991233223";
+    public static final String USER_NUMBER_WITH_DASHES = "8-999-123-32-23";
+    public static final String USER_NUMBER_WITH_DASHES_AND_PARENTHESES = "8(999)-123-32-23";
+    public static final String USER_NUMBER_WITH_PLUS_DASHES_PARENTHESES = "+7(999)-123-32-23";
+
+
     // константы для негативных тестов
     public static final String NAME_AS_NUMBER = "00000";
+
     public static final String USER_NUMBER_AS_STRING = "ggggggggggg";
+    public static final String USER_NUMBER_BAD_FORMAT = "+00012312332";
+
     public static final String TEXT_FILE = "textFile.txt";
 }

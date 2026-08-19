@@ -4,6 +4,8 @@ import data.Gender;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Condition.text;
@@ -109,17 +111,41 @@ public class PracticeFormTests extends BaseTest {
         registrationPage.getResultTable().shouldNotBe(visible);
     }
 
-    @Test
-    @DisplayName("Заполнение номера телефона буквами")
-    public void phoneFieldShouldNotAcceptLettersTest() {
+    @ValueSource(strings = {
+            USER_NUMBER_AS_STRING,
+            USER_NUMBER_BAD_FORMAT
+    })
+    @ParameterizedTest(name = "Негативный тест, заполнение номера телефона {0}")
+    public void phoneFieldShouldNotAcceptBadInputTest(String phoneNumber) {
         registrationPage.openPage()
                 .removeAdvertisement()
                 .setFirstName(FIRST_NAME)
                 .setLastName(LAST_NAME)
                 .setGender(Gender.Other.description)
-                .setUserNumber(USER_NUMBER_AS_STRING)
+                .setUserNumber(phoneNumber)
                 .submit();
 
         registrationPage.getResultTable().shouldNotBe(visible);
     }
+
+    @ValueSource(strings = {
+            USER_NUMBER_WITH_PLUS,
+            USER_NUMBER_WITH_DASHES,
+            USER_NUMBER_WITH_DASHES_AND_PARENTHESES,
+            USER_NUMBER_WITH_PLUS_DASHES_PARENTHESES
+    })
+    @ParameterizedTest(name = "Заполнение номера телефона {0}")
+    @Disabled("Дефект: нельзя ввести номер телефона с плюсами, скобками и дифисами")
+    public void phoneFieldShouldAcceptDiffFormatsTest(String phoneNumber) {
+        registrationPage.openPage()
+                .removeAdvertisement()
+                .setFirstName(FIRST_NAME)
+                .setLastName(LAST_NAME)
+                .setGender(Gender.Other.description)
+                .setUserNumber(phoneNumber)
+                .submit();
+
+        registrationPage.getResultTable().shouldBe(visible);
+    }
+
 }
