@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.RegistrationPage;
@@ -152,13 +153,14 @@ public class PracticeFormTests extends BaseTest {
     }
 
 
-    @CsvSource(value = {"Иванов, Пётр, Male , 9999999999",
-            "Смирнова, Анна, Female, 9160000000",
-            "Петрова-Соколова, Мария, Female, 9010000001",
-            "undecided, person, Other, 9637654321"
-    })
+//    @CsvSource(value = {"Иванов, Пётр, Male , 9999999999",
+//            "Смирнова, Анна, Female, 9160000000",
+//            "Петрова-Соколова, Мария, Female, 9010000001",
+//            "undecided, person, Other, 9637654321"
+//    })
+    @CsvFileSource(resources = "/test_data/requiredFieldsValidationFormats.csv")
     @ParameterizedTest(name = "Комбинация Имени {0} Фамилии {1}, пола {2} и номера телефона {3}")
-    public void phoneFieldShouldAcceptDiffFormatsTes123(String firstName, String lastName, String gender,
+    public void requiredFieldsValidationFormatsTest(String firstName, String lastName, String gender,
                                                         String phoneNumber) {
         registrationPage.openPage()
                 .removeAdvertisement()
@@ -173,6 +175,8 @@ public class PracticeFormTests extends BaseTest {
         registrationPage.getResultCell("Gender").shouldHave(text(gender));
         registrationPage.getResultCell("Mobile").shouldHave(text(phoneNumber));
     }
+
+
 
 
 }
