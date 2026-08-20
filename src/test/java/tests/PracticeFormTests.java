@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.RegistrationPage;
 
@@ -128,12 +129,13 @@ public class PracticeFormTests extends BaseTest {
         registrationPage.getResultTable().shouldNotBe(visible);
     }
 
-    @ValueSource(strings = {
+     @ValueSource(strings = {
             USER_NUMBER_WITH_PLUS,
             USER_NUMBER_WITH_DASHES,
             USER_NUMBER_WITH_DASHES_AND_PARENTHESES,
             USER_NUMBER_WITH_PLUS_DASHES_PARENTHESES
     })
+
     @ParameterizedTest(name = "Заполнение номера телефона {0}")
     @Disabled("Дефект: нельзя ввести номер телефона с плюсами, скобками и дифисами")
     public void phoneFieldShouldAcceptDiffFormatsTest(String phoneNumber) {
@@ -146,6 +148,31 @@ public class PracticeFormTests extends BaseTest {
                 .submit();
 
         registrationPage.getResultTable().shouldBe(visible);
+        registrationPage.getResultCell("Mobile").shouldHave(text(phoneNumber));
     }
+
+
+    @CsvSource(value = {"Иванов, Пётр, Male ,89999999999",
+            "Смирнова, Анна, Female, 89160000000",
+            "Петрова-Соколова, Мария, Female, 89010000001",
+            "undecided, person, Other, 89637654321"
+    })
+    @ParameterizedTest(name = "Комбинация Имени {0} Фамилии {1}, пола {2} и номера телефона {3}")
+    public void phoneFieldShouldAcceptDiffFormatsTes123(String firstName, String lastName, String gender,
+                                                        String phoneNumber) {
+        registrationPage.openPage()
+                .removeAdvertisement()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setGender(gender)
+                .setUserNumber(phoneNumber)
+                .submit();
+
+        registrationPage.getResultTable().shouldBe(visible);
+        registrationPage.getResultCell("Student Name").shouldHave(text(firstName + " " + lastName));
+        registrationPage.getResultCell("Gender").shouldHave(text(gender));
+        registrationPage.getResultCell("Mobile").shouldHave(text(phoneNumber));
+    }
+
 
 }
