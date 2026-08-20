@@ -152,10 +152,10 @@ public class PracticeFormTests extends BaseTest {
     }
 
 
-    @CsvSource(value = {"Иванов, Пётр, Male ,89999999999",
-            "Смирнова, Анна, Female, 89160000000",
-            "Петрова-Соколова, Мария, Female, 89010000001",
-            "undecided, person, Other, 89637654321"
+    @CsvSource(value = {"Иванов, Пётр, Male , 9999999999",
+            "Смирнова, Анна, Female, 9160000000",
+            "Петрова-Соколова, Мария, Female, 9010000001",
+            "undecided, person, Other, 9637654321"
     })
     @ParameterizedTest(name = "Комбинация Имени {0} Фамилии {1}, пола {2} и номера телефона {3}")
     public void phoneFieldShouldAcceptDiffFormatsTes123(String firstName, String lastName, String gender,
