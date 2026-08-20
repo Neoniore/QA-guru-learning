@@ -175,8 +175,4 @@ public class PracticeFormTests extends BaseTest {
         registrationPage.getResultCell("Gender").shouldHave(text(gender));
         registrationPage.getResultCell("Mobile").shouldHave(text(phoneNumber));
     }
-
-
-
-
 }
