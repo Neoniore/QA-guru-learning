@@ -39,44 +39,44 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
-    @Step("Заполнить поле Имя")
+    @Step("Заполнить поле Имя значением \"{value}\"")
     public RegistrationPage setFirstName(String value) {
         firstName.setValue(value);
         return this;
     }
 
-    @Step("Заполнить поле Фамилия")
+    @Step("Заполнить поле Фамилия значением \"{value}\"")
     public RegistrationPage setLastName(String value) {
         lastName.setValue(value);
         return this;
     }
 
-    @Step("Заполнить поле Email")
+    @Step("Заполнить поле Email значением \"{value}\"")
     public RegistrationPage setUserEmail(String value) {
         userEmail.setValue(value);
         return this;
     }
 
-    @Step("Выбрать пол")
+    @Step("Выбрать пол \"{value}\"")
     public RegistrationPage setGender(String value) {
         genderWrapper.$(byText(value)).click();
         return this;
     }
 
-    @Step("Заполнить поле Номер телефона")
+    @Step("Заполнить поле Номер телефона значением \"{value}\"")
     public RegistrationPage setUserNumber(String value) {
         userNumber.setValue(value);
         return this;
     }
 
-    @Step("Заполнить дату рождения")
+    @Step("Заполнить дату рождения: \"{day}\" \"{month}\" \"{year}\"")
     public RegistrationPage setDateOfBirth(String day, String month, String year) {
         dateOfBirthInput.click();
         calendarComponent.setDate(day, month, year);
         return this;
     }
 
-    @Step("Заполнить предметы")
+    @Step("Заполнить предметы: \"{subjects}\"")
     public RegistrationPage setSubjects(String... subjects) {
         for (String subject : subjects) {
             subjectsInput.setValue(subject).pressEnter();
@@ -84,7 +84,7 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
-    @Step("Выбрать хобби")
+    @Step("Выбрать хобби: \"{hobbies}\"")
     public RegistrationPage setHobbies(String... hobbies) {
         for (String hobby : hobbies) {
             hobbiesWrapper.$(byText(hobby)).click();
@@ -92,25 +92,25 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
-    @Step("Загрузить картинку")
+    @Step("Загрузить картинку \"{fileName}\"")
     public RegistrationPage uploadPicture(String fileName) {
         uploadPictureInput.uploadFromClasspath(fileName);
         return this;
     }
 
-    @Step("Заполнить поле Адрес")
+    @Step("Заполнить поле Адрес значением \"{value}\"")
     public RegistrationPage setCurrentAddress(String value) {
         currentAddress.setValue(value);
         return this;
     }
 
-    @Step("Выбрать штат")
+    @Step("Выбрать штат \"{value}\"")
     public RegistrationPage setState(String value) {
         stateInput.setValue(value).pressEnter();
         return this;
     }
 
-    @Step("Выбрать город")
+    @Step("Выбрать город \"{value}\"")
     public RegistrationPage setCity(String value) {
         cityInput.setValue(value).pressEnter();
         return this;
