@@ -128,7 +128,7 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
-    @Step("Получить ячейку результирующей таблицы")
+    @Step("Получить ячейку результирующей таблицы \"{key}\"")
     public SelenideElement getResultCell(String key) {
         return resultsTable.getCell(key);
     }
