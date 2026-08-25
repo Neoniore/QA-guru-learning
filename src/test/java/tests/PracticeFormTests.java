@@ -13,6 +13,7 @@ import pages.RegistrationPage;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static data.RegistrationFormTestData.*;
+import static io.qameta.allure.Allure.step;
 
 @DisplayName("Тесты регистрации")
 public class PracticeFormTests extends BaseTest {
@@ -22,32 +23,40 @@ public class PracticeFormTests extends BaseTest {
     @Test
     @DisplayName("Заполнение всех полей валидными данными и проверка результирующей таблицы")
     public void positiveRegistrationFormFillingTest() {
-        registrationPage.openPage()
-                .removeAdvertisement()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .setUserEmail(USER_EMAIL)
-                .setGender(Gender.Male.description)
-                .setUserNumber(USER_NUMBER)
-                .setDateOfBirth(DAY, MONTH, YEAR)
-                .setSubjects(SUBJECTS)
-                .setHobbies(HOBBIES)
-                .uploadPicture(PICTURE)
-                .setCurrentAddress(CURRENT_ADDRESS)
-                .setState(STATE)
-                .setCity(CITY)
-                .submit();
 
-        registrationPage.getResultCell("Student Name").shouldHave(text(FIRST_NAME + " " + LAST_NAME));
-        registrationPage.getResultCell("Student Email").shouldHave(text(USER_EMAIL));
-        registrationPage.getResultCell("Gender").shouldHave(text(Gender.Male.description));
-        registrationPage.getResultCell("Mobile").shouldHave(text(USER_NUMBER));
-        registrationPage.getResultCell("Date of Birth").shouldHave(text(DAY + " " + MONTH + "," + YEAR));
-        registrationPage.getResultCell("Subjects").shouldHave(text(EXPECTED_SUBJECTS));
-        registrationPage.getResultCell("Hobbies").shouldHave(text(String.join(", ", HOBBIES)));
-        registrationPage.getResultCell("Picture").shouldHave(text(PICTURE));
-        registrationPage.getResultCell("Address").shouldHave(text(CURRENT_ADDRESS));
-        registrationPage.getResultCell("State and City").shouldHave(text(STATE + " " + CITY));
+        step("Открытие формы регистрации", () -> {
+            registrationPage.openPage()
+                    .removeAdvertisement();
+        });
+        step("Заполнение формы регистрации", () -> {
+            registrationPage
+                    .setFirstName(FIRST_NAME)
+                    .setLastName(LAST_NAME)
+                    .setUserEmail(USER_EMAIL)
+                    .setGender(Gender.Male.description)
+                    .setUserNumber(USER_NUMBER)
+                    .setDateOfBirth(DAY, MONTH, YEAR)
+                    .setSubjects(SUBJECTS)
+                    .setHobbies(HOBBIES)
+                    .uploadPicture(PICTURE)
+                    .setCurrentAddress(CURRENT_ADDRESS)
+                    .setState(STATE)
+                    .setCity(CITY)
+                    .submit();
+        });
+        step("Проверки данных в результирующей таблице", () -> {
+            registrationPage.getResultCell("Student Name").shouldHave(text(FIRST_NAME + " " + LAST_NAME));
+            registrationPage.getResultCell("Student Email").shouldHave(text(USER_EMAIL));
+            registrationPage.getResultCell("Gender").shouldHave(text(Gender.Male.description));
+            registrationPage.getResultCell("Mobile").shouldHave(text(USER_NUMBER));
+            registrationPage.getResultCell("Date of Birth").shouldHave(text(DAY + " " + MONTH + "," + YEAR));
+            registrationPage.getResultCell("Subjects").shouldHave(text(EXPECTED_SUBJECTS));
+            registrationPage.getResultCell("Hobbies").shouldHave(text(String.join(", ", HOBBIES)));
+            registrationPage.getResultCell("Picture").shouldHave(text(PICTURE));
+            registrationPage.getResultCell("Address").shouldHave(text(CURRENT_ADDRESS));
+            registrationPage.getResultCell("State and City").shouldHave(text(STATE + " " + CITY));
+
+        });
     }
 
     @Test
@@ -130,7 +139,7 @@ public class PracticeFormTests extends BaseTest {
         registrationPage.getResultTable().shouldNotBe(visible);
     }
 
-     @ValueSource(strings = {
+    @ValueSource(strings = {
             USER_NUMBER_WITH_PLUS,
             USER_NUMBER_WITH_DASHES,
             USER_NUMBER_WITH_DASHES_AND_PARENTHESES,
@@ -153,7 +162,7 @@ public class PracticeFormTests extends BaseTest {
     }
 
 
-//    @CsvSource(value = {"Иванов, Пётр, Male , 9999999999",
+    //    @CsvSource(value = {"Иванов, Пётр, Male , 9999999999",
 //            "Смирнова, Анна, Female, 9160000000",
 //            "Петрова-Соколова, Мария, Female, 9010000001",
 //            "undecided, person, Other, 9637654321"
@@ -161,7 +170,7 @@ public class PracticeFormTests extends BaseTest {
     @CsvFileSource(resources = "/test_data/requiredFieldsValidationFormats.csv")
     @ParameterizedTest(name = "Комбинация Имени {0} Фамилии {1}, пола {2} и номера телефона {3}")
     public void requiredFieldsValidationFormatsTest(String firstName, String lastName, String gender,
-                                                        String phoneNumber) {
+                                                    String phoneNumber) {
         registrationPage.openPage()
                 .removeAdvertisement()
                 .setFirstName(firstName)
