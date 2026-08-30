@@ -18,10 +18,11 @@ public class BaseTest {
     @BeforeAll
     public static void startUp() {
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browser = System.getProperty("browser");
-               // ("chrome"); // в переменные браузер, версию браузера, параметр headless, разрешение экрана
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com"; // в переменную
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browser_version", "151.0");
+        Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
+        Configuration.baseUrl = System.getProperty("base-url","https://demoqa.com"); // в переменную
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false")); // в переменную
 
         SelenideLogger.addListener("allure", new AllureSelenide()
 //                .screenshots(true)
@@ -34,7 +35,7 @@ public class BaseTest {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "https://user1:1234@selenoid.qa.guru/wd/hub"; // в переменную
+        Configuration.remote = System.getProperty("remote", "https://user1:1234@selenoid.qa.guru/wd/hub"); // в переменную
     }
 
     @AfterEach
