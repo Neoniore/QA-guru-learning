@@ -17,7 +17,7 @@ public class BaseTest {
 
     @BeforeAll
     public static void startUp() {
-        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browser = System.getProperty("browser");
                // ("chrome"); // в переменные браузер, версию браузера, параметр headless, разрешение экрана
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com"; // в переменную
