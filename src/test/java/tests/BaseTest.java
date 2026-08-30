@@ -17,6 +17,7 @@ public class BaseTest {
 
     @BeforeAll
     public static void startUp() {
+        Configuration.pageLoadStrategy = "eager";
         Configuration.browser = System.getProperty("browser");
                // ("chrome"); // в переменные браузер, версию браузера, параметр headless, разрешение экрана
         Configuration.browserSize = "1920x1080";
